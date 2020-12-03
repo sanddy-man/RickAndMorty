@@ -8,6 +8,7 @@ import {
   LOAD_CHARACTOR_DETAIL_SUCCESS,
   LOAD_CHARACTOR_DETAIL_ERROR,
   CLEAR_CHARACTOR_STATES,
+  CLEAR_CHARACTOR_DETAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -50,6 +51,11 @@ export const characters = (state = initialState, action) => {
       return update(state, {
         detailStatus: {$set: ACTION.ERROR},
         errorMsg: {$set: dispatch},
+      });
+    case CLEAR_CHARACTOR_DETAIL:
+      return update(state, {
+        detail: {$set: null},
+        detailStatus: {$set: null},
       });
     case CLEAR_CHARACTOR_STATES:
       return update(state, {

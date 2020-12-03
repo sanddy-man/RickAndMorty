@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {StyleSheet, Image} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {
   Container,
@@ -17,7 +17,13 @@ import {
 } from 'native-base';
 import {loadCharacterDetailAction} from '../store/actions/charactors.actions';
 
-const DetailsScreen = ({route, loadCharacterDetail, detail, detailStatus}) => {
+const DetailsScreen = ({
+  route,
+  loadCharacterDetail,
+  detail,
+  detailStatus,
+  navigation,
+}) => {
   const {characterId} = route.params;
   React.useEffect(() => {
     loadCharacterDetail(characterId);
@@ -59,27 +65,34 @@ const DetailsScreen = ({route, loadCharacterDetail, detail, detailStatus}) => {
                 />
               </Body>
             </CardItem>
-            <CardItem onPress={() => {}}>
+            <CardItem>
               <Icon active name="location" />
               <Text>Last known location: </Text>
               <Right>
                 <Text>{detail.location.name}</Text>
               </Right>
             </CardItem>
-            <CardItem onPress={() => {}}>
+            <CardItem>
               <Icon active name="location" />
               <Text>First seen in</Text>
               <Right>
                 <Text>{detail.origin.name}</Text>
               </Right>
             </CardItem>
-            <CardItem onPress={() => {}}>
-              <Icon active name="easel" />
-              <Text>Episodes</Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Episodes', {
+                  episodes: detail.episode,
+                })
+              }>
+              <CardItem>
+                <Icon active name="easel" />
+                <Text>Episodes</Text>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
+              </CardItem>
+            </TouchableOpacity>
           </Card>
         </Content>
       ) : (

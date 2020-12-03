@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
 import store from './src/store';
+import EpisodesScreen from './src/screens/EpisodesScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ const App = () => {
             options={{title: 'Overview'}}
           />
           <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Episodes" component={EpisodesScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

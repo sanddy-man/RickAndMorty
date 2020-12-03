@@ -7,6 +7,7 @@ import {
   LOAD_CHARACTOR_DETAIL_SUCCESS,
   LOAD_CHARACTOR_DETAIL_ERROR,
   CLEAR_CHARACTOR_STATES,
+  CLEAR_CHARACTOR_DETAIL,
 } from './types';
 
 export const loadCharactersAction = () => async (dispatch) => {
@@ -69,6 +70,9 @@ export const loadNextCharactersAction = (url) => async (dispatch) => {
 };
 
 export const loadCharacterDetailAction = (id) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_CHARACTOR_DETAIL,
+  });
   dispatch({
     type: LOAD_CHARACTOR_DETAIL_PROGRESS,
   });
