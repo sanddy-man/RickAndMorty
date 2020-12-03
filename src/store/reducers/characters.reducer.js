@@ -7,6 +7,7 @@ import {
   LOAD_CHARACTOR_DETAIL_PROGRESS,
   LOAD_CHARACTOR_DETAIL_SUCCESS,
   LOAD_CHARACTOR_DETAIL_ERROR,
+  CLEAR_CHARACTOR_STATES,
 } from '../actions/types';
 
 const initialState = {
@@ -49,6 +50,15 @@ export const characters = (state = initialState, action) => {
       return update(state, {
         detailStatus: {$set: ACTION.ERROR},
         errorMsg: {$set: dispatch},
+      });
+    case CLEAR_CHARACTOR_STATES:
+      return update(state, {
+        charactersStatus: {$set: null},
+        characters: {$set: []},
+        charactersMetaInfo: {$set: null},
+        detail: {$set: null},
+        detailStatus: {$set: null},
+        errorMsg: {$set: ''},
       });
     default:
       return state;

@@ -6,6 +6,7 @@ import {
   LOAD_CHARACTOR_DETAIL_PROGRESS,
   LOAD_CHARACTOR_DETAIL_SUCCESS,
   LOAD_CHARACTOR_DETAIL_ERROR,
+  CLEAR_CHARACTOR_STATES,
 } from './types';
 
 export const loadCharactersAction = () => async (dispatch) => {
@@ -14,6 +15,29 @@ export const loadCharactersAction = () => async (dispatch) => {
   });
   try {
     const res = await Axios.get('https://rickandmortyapi.com/api/character/');
+    dispatch({
+      type: LOAD_CHARACTORS_SUCCESS,
+      dispatch: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOAD_CHARACTORS_ERROR,
+      dispatch: err.response.data.message,
+    });
+  }
+};
+
+export const searchCharactersAction = (searchStr) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_CHARACTOR_STATES,
+  });
+  dispatch({
+    type: LOAD_CHARACTORS_PROGRESS,
+  });
+  try {
+    const res = await Axios.get(
+      `https://rickandmortyapi.com/api/character/?name=${searchStr}`,
+    );
     dispatch({
       type: LOAD_CHARACTORS_SUCCESS,
       dispatch: res.data,

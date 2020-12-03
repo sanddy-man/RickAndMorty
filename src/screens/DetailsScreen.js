@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {StyleSheet, Image} from 'react-native';
@@ -7,20 +8,14 @@ import {
   Content,
   Card,
   CardItem,
-  Accordion,
   Text,
   Icon,
   Left,
   Body,
   Spinner,
   Right,
-  Button,
 } from 'native-base';
 import {loadCharacterDetailAction} from '../store/actions/charactors.actions';
-const dataArray = [
-  {title: 'Last know location', content: 'Lorem ipsum dolor sit amet'},
-  {title: 'First seen in', content: 'Lorem ipsum dolor sit amet'},
-];
 
 const DetailsScreen = ({route, loadCharacterDetail, detail, detailStatus}) => {
   const {characterId} = route.params;
@@ -32,7 +27,7 @@ const DetailsScreen = ({route, loadCharacterDetail, detail, detailStatus}) => {
     <Container>
       {detail ? (
         <Content>
-          <Card style={{flex: 0}}>
+          <Card>
             <CardItem>
               <Left>
                 <Body>

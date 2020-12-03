@@ -21,6 +21,7 @@ import {
 import {
   loadCharactersAction,
   loadNextCharactersAction,
+  searchCharactersAction,
 } from '../store/actions/charactors.actions';
 import {ACTION} from '../store/actions/constants';
 
@@ -28,10 +29,12 @@ const HomeScreen = ({
   characters,
   charactersStatus,
   loadCharacters,
+  searchCharacters,
   loadNextCharacters,
   charactersMetaInfo,
   navigation,
 }) => {
+  const [searchStr, setSearchStr] = React.useState('');
   React.useEffect(() => {
     if (characters.length === 0) {
       loadCharacters();
@@ -55,7 +58,8 @@ const HomeScreen = ({
     </List>
   );
 
-  const renderLoading = () => <Spinner />;
+  const renderLoading = () =>
+    charactersStatus === ACTION.PROGRESS ? <Spinner /> : <Text>NO DATA</Text>;
 
   const onLoadMore = () => {
     if (charactersStatus === ACTION.PROGRESS) {
@@ -77,10 +81,17 @@ const HomeScreen = ({
       <Header searchBar rounded>
         <Item>
           <Icon name="ios-search" />
-          <Input placeholder="Search" />
+          <Input
+            placeholder="Search"
+            value={searchStr}
+            onChangeText={setSearchStr}
+            onSubmitEditing={() => searchCharacters(searchStr.toLowerCase())}
+          />
           <Icon name="ios-people" />
         </Item>
-        <Button transparent>
+        <Button
+          transparent
+          onPress={() => searchCharacters(searchStr.toLowerCase())}>
           <Text>Search</Text>
         </Button>
       </Header>
@@ -106,6 +117,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   loadCharacters: () => dispatch(loadCharactersAction()),
   loadNextCharacters: (url) => dispatch(loadNextCharactersAction(url)),
+  searchCharacters: (searchStr) => dispatch(searchCharactersAction(searchStr)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
